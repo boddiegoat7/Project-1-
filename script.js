@@ -135,6 +135,7 @@ zipForm.addEventListener("submit", async function (e) {
 
 //working on loacal storage
 // localStorage.setItem("ourarraykey",JSON.stringify(ourArray));
+<<<<<<< HEAD:script.js
 
 // Get anything from local storage when the page loads
 saved_searches = JSON.parse(
@@ -157,3 +158,5 @@ function store() {
     document.getElementById("zip-code-search").value = "";
   }
 }
+=======
+>>>>>>> 573c8ac87ba360a310313ec6f42f576f5a588f8e:assets/js/script.js
