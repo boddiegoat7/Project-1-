@@ -1,4 +1,3 @@
-// getting dom elements
 let zipForm = document.getElementById("zip-code-search");
 let searchInput = document.querySelector(".input-group-field");
 let gridWrapper = document.querySelector(".grid-x");
@@ -41,6 +40,32 @@ getBusinessByLocation = (location) => {
   )
     .then((response) => response.json())
     .then((response) => response)
+    .then((response) => {
+      let businesses = [];
+
+      // businesses.splice(3)
+      // console.log(businesses)
+
+      // busness.size = 5
+      // const size = 3;
+      //  businesses.slice(5, business.length);
+      // console.log(items)
+
+      // const n = 3;
+      // const topFive = businesses.slice(0, n);
+
+      response.mainListProps.forEach((business) => {
+        if (business.bizId) {
+          let newBiz = {
+            name: business.searchResultBusiness.name,
+            rating: business.searchResultBusiness.rating,
+            phone: business.searchResultBusiness.phone,
+          };
+          businesses.push(newBiz);
+        }
+      });
+      return businesses;
+    })
     .catch((err) => console.error(err));
 };
 
@@ -54,18 +79,20 @@ zipForm.addEventListener("submit", async function (e) {
   let businesses;
   if (data) {
     businesses = await getBusinessByLocation(data);
+    var n = 4;
+    var bus = businesses.slice(0, n);
+    console.log(bus);
     console.log(Array.isArray(businesses));
     if (Array.isArray(businesses) === true) {
       gridWrapper.innerHTML = "";
-      businesses.forEach((business) => {
+      bus.forEach((business) => {
         let businessCard = ` <div class="cell">
                 <div class="card">
-                  <img src=${business.image} >
+
                   <div class="card-section">
                   <h4>${business.name}</h4>
                     <p>Rating: ${business.rating}</p>
                     <p>Phone Number: ${business.phone}</p>
-                    <p>Business Review Count: ${business.reviewCount}</p>
                   </div>
                 </div>
               </div>`;
@@ -86,3 +113,6 @@ zipForm.addEventListener("submit", async function (e) {
     }
   }
 });
+
+//working on loacal storage
+// localStorage.setItem("ourarraykey",JSON.stringify(ourArray));
